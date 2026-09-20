@@ -87,16 +87,16 @@ The user is then directed toward the relevant policy, official information, or a
 ## Key Innovation
 
 CareLens goes beyond traditional medical-bill OCR by combining:
+| Component                          | Technology                                           | Role                                                                | Links                                                                                                               |
+| ---------------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **Document Intelligence**          | Azure Document Intelligence                          | Extracts tables, text, and structure from any bill format           | [Azure AI Document Intelligence](https://azure.microsoft.com/en-us/products/ai-foundry/tools/document-intelligence) |
+| **Generative AI**                  | NVIDIA NIM (OpenAI-compatible API)                   | Produces safe, evidence-grounded plain-language explanations        | [NVIDIA NIM / Nemotron](https://build.nvidia.com/nvidia/nemotron-3-embed-1b)                                        |
+| **Healthcare Knowledge Retrieval** | NVIDIA Nemotron-3-Embed-1B + Supabase pgvector       | Grounds analysis in policies and regulations                        | [NVIDIA Nemotron-3-Embed-1B](https://build.nvidia.com/nvidia/nemotron-3-embed-1b)                                   |
+| **Hybrid Ranking**                 | Custom scoring (vector + keyword + doc-type bonuses) | Surfaces the most relevant evidence                                 | —                                                                                                                   |
+| **Rule-Based Validation**          | Pure JavaScript arithmetic                           | Detects duplicates and inconsistencies with zero hallucination risk | —                                                                                                                   |
+| **Safe AI Design**                 | 26 prompt rules + temperature 0.1                    | Prevents overconfident or harmful claims                            | [System Prompt](https://drive.google.com/file/d/1iRFxUoGGT1UmxkaNkqnyQC6Zos6QZ7Km/view?usp=sharing)                                                                                                                   |
+| **Patient-Centric UX**             | React + Tailwind                                     | Makes results usable for non-experts                                | —                                                                                                                   |
 
-| Component | Technology | Role |
-|---|---|---|
-| **Document Intelligence** | Azure Document Intelligence | Extracts tables, text, and structure from any bill format |
-| **Generative AI** | NVIDIA NIM (OpenAI-compatible API) | Produces safe, evidence-grounded plain-language explanations |
-| **Healthcare Knowledge Retrieval** | NVIDIA Nemotron-3-Embed-1B + Supabase pgvector | Grounds analysis in policies and regulations |
-| **Hybrid Ranking** | Custom scoring (vector + keyword + doc-type bonuses) | Surfaces the most relevant evidence |
-| **Rule-Based Validation** | Pure JavaScript arithmetic | Detects duplicates and inconsistencies with zero hallucination risk |
-| **Safe AI Design** | 26 prompt rules + temperature 0.1 | Prevents overconfident or harmful claims |
-| **Patient-Centric UX** | React + Tailwind | Makes results usable for non-experts |
 
 **CareLens = Azure OCR + Deterministic Validation + NVIDIA RAG + NVIDIA LLM → Patient-Friendly Medical Bill Transparency**
 
@@ -115,6 +115,15 @@ CareLens goes beyond traditional medical-bill OCR by combining:
 **Result**
 
 <img width="656" height="617" alt="CareLens analysis result" src="https://github.com/user-attachments/assets/14321bbb-6c93-4887-96c5-2f1afd0b820e" />
+
+**Database (Supabase)**
+
+Document: 
+<img width="1004" height="483" alt="CareLens analysis result"  src="https://github.com/user-attachments/assets/bb0010ea-8dd7-4a5d-b3fc-d61641a15371" />
+
+Document Chuck:
+<img width="1016" height="607" alt="image" src="https://github.com/user-attachments/assets/b135be20-559c-4d0f-b04f-9edf5f8c432d" />
+
 
 ---
 
@@ -169,7 +178,7 @@ Upload any of them on the `/upload` page to see the full analysis pipeline in ac
 |---|---|---|---|
 | **Azure Document Intelligence** | Microsoft Azure | `@azure-rest/ai-document-intelligence ^1.0.0` | OCR + layout extraction |
 | **NVIDIA NIM LLM** | NVIDIA | `openai ^5.16.0` (compatible API) | Plain-language bill explanations |
-| **NVIDIA Nemotron Embeddings** | NVIDIA | `openai ^5.16.0` (compatible API) | Text → vector embeddings |
+| **NVIDIA Nemotron Embeddings**  | NVIDIA | `openai ^5.16.0` (compatible API) | Text → vector embeddings |
 | **Supabase (pgvector)** | Supabase | `@supabase/supabase-js ^2.57.0` | Vector DB + knowledge base |
 
 ### Deployment
@@ -424,6 +433,7 @@ match_document_chunks(
 | `/api/chat` | POST | ~20 req/min | Contextual AI chat |
 | `/api/rag/search` | GET / POST | ~10 req/min | Raw knowledge base search |
 
+_Due to model limitation and NVIDIA's Limit in enpoint communation, the processing is slow { ~20/min per request }_
 ---
 
 ## Deployment Architecture
