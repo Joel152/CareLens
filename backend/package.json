@@ -1,0 +1,24 @@
+{
+  "name": "carelens-backend",
+  "version": "1.0.0",
+  "description": "CareLens backend API",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js"
+  },
+  "engines": {
+    "node": "24.x"
+  },
+  "dependencies": {
+    "@azure-rest/ai-document-intelligence": "^1.0.0",
+    "@supabase/supabase-js": "^2.57.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "multer": "^2.0.2",
+    "openai": "^5.16.0"
+  }
+}
