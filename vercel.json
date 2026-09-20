@@ -1,17 +1,27 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "version": 2,
-  "buildCommand": "cd carelens-frontend && npm install && npm run build",
-  "outputDirectory": "carelens-frontend/dist",
-  "installCommand": "cd backend && npm install && cd ../carelens-frontend && npm install",
+  "services": {
+    "frontend": {
+      "root": "carelens-frontend/",
+      "framework": "vite"
+    },
+    "backend": {
+      "root": "backend/",
+      "entrypoint": "src/server.js"
+    }
+  },
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "/backend/:path*"
+      "destination": {
+        "service": "backend"
+      }
     },
     {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": {
+        "service": "frontend"
+      }
     }
   ]
 }
