@@ -562,7 +562,7 @@ By turning complex medical bills and healthcare policies into understandable, ev
 
 ## Disclaimer
 
-CareLens provides information and navigation support only. It does not provide medical advice, legal advice, or definitive determinations of billing errors. Users should verify all findings with the relevant hospital, insurer, or official authority.
+CareLens provides information and navigation support only. All data used are fake, real world testing can't be done as it's a hackathon project
 
 ---
 
